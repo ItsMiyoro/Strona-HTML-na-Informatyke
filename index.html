@@ -9,6 +9,10 @@
         body{
             background-color: DarkSlateGray;
             color: white;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            cursor: default;
         }
         h1{
             background-color: darkslateblue;
@@ -118,6 +122,17 @@
         .number10 { top: 45px;  left: 10px;  }
         .number11 { top: 20px;  left: 40px;  }
         .number12 { top: 5px;   left: 90px;  }
+
+        /* Samochodzik krążący wokół kursora */
+        #car {
+            position: fixed;
+            font-size: 24px;
+            pointer-events: none; /* żeby nie przeszkadzał w klikaniu */
+            user-select: none;
+            z-index: 9999;
+            transform-origin: center center;
+            transition: transform 0.1s linear;
+        }
     </style>
 </head>
 <body>
@@ -127,7 +142,6 @@
 </header>
 <hr>
 
-<!-- Kontener z zegarami obok siebie -->
 <div class="clocks-row">
     <div class="clock-container">
         <h2>Polska</h2>
@@ -205,7 +219,7 @@ W roku 1491 Mikołaj przekazał swoje dobra synowi Pawłowi w tym Ratyczów, Że
 <p id="copyright"> Źródło : wikipedia.org </p>
 <p id="focie"> <img src="ratyczow-znak.png" alt="Zdjęcie znaku Ratyczowa z wjazdu wschodniego, mieszkam tam gdzieś na prawo" width="500" height="300"></p>
 <p id="focie">Zdjęcie autorstwa Jakuba Kruczka </p>
-<h2> Okej, ale dlaczego akurat o tym <s>zadupiu</s> miejscu pisze? </h2>
+<h2> Okej, ale dlaczego akurat o tym zadupiu pisze? </h2>
 <p> W Poprzedniej sekcji napisałem o dwóch osobach, burmistrzyni Łaszczowa w latach 2019-2024 Aleksandrze Pietrasz, i sołtysem od 2009-2021, Andrzeju Pietraszu. Teraz przeczytaj kto jest autorem tej strony (gdzieś na dole jest)</p>
 <h2> A jak ten ratyczuf wyglonda? </h2>
 <p> nie che mi się rozpisywać, poniżej wysyłam własno ręcznie zrobioną mapkę ważnych miejsc, i potem je opisze </p>
@@ -224,6 +238,9 @@ W roku 1491 Mikołaj przekazał swoje dobra synowi Pawłowi w tym Ratyczów, Że
   <img src="huczwa.png" alt="Zdjęcie huczwy ukrytej za drzewami" width="200" height="200">
 </ol>
 <hr>
+
+<!-- Samochodzik -->
+<div id="car" aria-label="samochodzik" role="img">🚗</div>
 
 <script>
 function updateClock(timeZone, prefix) {
@@ -258,6 +275,34 @@ function updateAllClocks() {
 
 setInterval(updateAllClocks, 1000);
 updateAllClocks(); // Initial call
+
+// Samochodzik krążący wokół kursora
+
+const car = document.getElementById('car');
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+let angle = 0;
+const radius = 50; // promień okręgu wokół kursora
+const speed = 0.05; // prędkość obrotu (im mniejsza, tym wolniej)
+
+window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+function animateCar() {
+    angle += speed;
+    const carX = mouseX + radius * Math.cos(angle);
+    const carY = mouseY + radius * Math.sin(angle);
+    car.style.left = carX + 'px';
+    car.style.top = carY + 'px';
+    // Obracamy samochodzik aby jechał "wzdłuż" toru:
+    const deg = angle * (180 / Math.PI) + 90; // +90 żeby auto było prosto
+    car.style.transform = `translate(-50%, -50%) rotate(${deg}deg)`;
+    requestAnimationFrame(animateCar);
+}
+animateCar();
+
 </script>
 
 <footer>
