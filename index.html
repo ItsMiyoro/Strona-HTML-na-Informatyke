@@ -38,6 +38,47 @@
         }
         footer{
         background-color: black;}
+            .clock-container {
+      text-align: center;
+    }
+
+    .clock {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      border: 8px solid #333;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      background: white;
+
+    }
+
+    .hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom center;
+      background: #000;
+      transform: translateX(-50%) rotate(0deg);
+    }
+
+    .hour {
+      width: 6px;
+      height: 50px;
+      background: #000;
+    }
+
+    .minute {
+      width: 4px;
+      height: 70px;
+      background: #333;
+    }
+
+    .second {
+      width: 2px;
+      height: 90px;
+      background: red;
+    }
     </style>
     </head>
     <body>
@@ -46,6 +87,32 @@
         <p id="ichi"><i> Czyli małe <s>zadupie</s> wioski (bo jeszcze pgr, i coś tam) w Tomaszowie Lubelskim, z kąd pochodzę JA :) </i></p>
     </header>
         <hr>
+  <div class="clock-container">
+    <h2>Polska</h2>
+    <div class="clock" id="clock-pl">
+      <div class="hand hour" id="hour-pl"></div>
+      <div class="hand minute" id="minute-pl"></div>
+      <div class="hand second" id="second-pl"></div>
+    </div>
+  </div>
+
+  <div class="clock-container">
+    <h2>Nowy Jork</h2>
+    <div class="clock" id="clock-ny">
+      <div class="hand hour" id="hour-ny"></div>
+      <div class="hand minute" id="minute-ny"></div>
+      <div class="hand second" id="second-ny"></div>
+    </div>
+  </div>
+
+  <div class="clock-container">
+    <h2>Tokio</h2>
+    <div class="clock" id="clock-tokyo">
+      <div class="hand hour" id="hour-tokyo"></div>
+      <div class="hand minute" id="minute-tokyo"></div>
+      <div class="hand second" id="second-tokyo"></div>
+    </div>
+  </div>
         <h2> <i>No dobra, ale czym w ogóle jest ratyczów?</i> </h2>
         <p> <i> Świetnie że pytasz! </i></p>
         <p> Ratyczów to miejscowość położona na Lubelszczyźnie w powiecie Tomaszowskim, gminie Łaszczów (gdzie w latach 2019-2024 burmistrzynią była Aleksandra Pietrasz, a w latach 2009-2021 sołtysem był Andrzej Pietrasz), która słynie z...</p>
@@ -74,6 +141,40 @@ W roku 1491 Mikołaj przekazał swoje dobra synowi Pawłowi w tym Ratyczów, Że
   <img src="huczwa.png" alt="Zdjęcie huczwy ukrytej za drzewami" width="200" height="200">
 
 </ol><hr>
+<script>
+function updateClock(timeZone, prefix) {
+      const now = new Date();
+      const localTime = new Intl.DateTimeFormat('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: false,
+        timeZone
+      }).formatToParts(now).reduce((acc, part) => {
+        if (part.type !== 'literal') acc[part.type] = parseInt(part.value);
+        return acc;
+      }, {});
+
+      const { hour, minute, second } = localTime;
+
+      const hourDeg = ((hour % 12) + minute / 60) * 30;
+      const minuteDeg = (minute + second / 60) * 6;
+      const secondDeg = second * 6;
+
+      document.getElementById(`hour-${prefix}`).style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+      document.getElementById(`minute-${prefix}`).style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+      document.getElementById(`second-${prefix}`).style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+    }
+
+    function updateAllClocks() {
+      updateClock('Europe/Warsaw', 'pl');
+      updateClock('America/New_York', 'ny');
+      updateClock('Asia/Tokyo', 'tokyo');
+    }
+
+    setInterval(updateAllClocks, 1000);
+    updateAllClocks(); // Initial call
+</script>
 <footer>
 <p> i w sumie tyle, poniżej mam formy kontatku, apropos</p>
 
