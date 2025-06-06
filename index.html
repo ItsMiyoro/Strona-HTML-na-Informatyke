@@ -3,121 +3,204 @@
 <head>
     <title> Ratyczów </title>
     <meta charset="UTF-8">
-        <meta name="description" content="Strona o Ratyczowie">
-        <meta author="Dawid Pietrasz">
+    <meta name="description" content="Strona o Ratyczowie">
+    <meta author="Dawid Pietrasz">
     <style>
         body{
-        background-color: DarkSlateGray;
-        color: white;
+            background-color: DarkSlateGray;
+            color: white;
         }
         h1{
-        background-color: darkslateblue;
-        text-align: center;
-        margin: 50px;
-        color: white;
-        font-size: 69px;
-        border: 3px solid lime;
+            background-color: darkslateblue;
+            text-align: center;
+            margin: 50px;
+            color: white;
+            font-size: 69px;
+            border: 3px solid lime;
         }
         #ichi{
-        background-color: darkslateblue;
-        color: gray;
-        text-align: center;
-        margin: 50px;
-          font-family: sans-serif, "Helvetica Neue", "Lucida Grande", Arial; //odziwo tego trzeba, powalone
-        font-stretch: ultra-expanded;
+            background-color: darkslateblue;
+            color: gray;
+            text-align: center;
+            margin: 50px;
+            font-family: sans-serif, "Helvetica Neue", "Lucida Grande", Arial; /* poprawka komentarza */
+            font-stretch: ultra-expanded;
         }
         #wiki{
-        color: AliceBlue;
+            color: AliceBlue;
         }
         #copyright{
-        color: gray;
-        font-size: 15px;
+            color: gray;
+            font-size: 15px;
         }
         #focie{
-        text-align: center;
+            text-align: center;
         }
         footer{
-        background-color: black;}
-            .clock-container {
-      text-align: center;
-    }
+            background-color: black;
+            padding: 20px;
+            color: white;
+        }
 
-    .clock {
-      position: relative;
-      width: 200px;
-      height: 200px;
-      border: 8px solid #333;
-      border-radius: 50%;
-      margin: 0 auto 10px;
-      background: white;
+        /* Flex container dla zegarów */
+        .clocks-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
 
-    }
+        .clock-container {
+            text-align: center;
+        }
 
-    .hand {
-      position: absolute;
-      bottom: 50%;
-      left: 50%;
-      transform-origin: bottom center;
-      background: #000;
-      transform: translateX(-50%) rotate(0deg);
-    }
+        .clock {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border: 8px solid #333;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            background: white;
+        }
 
-    .hour {
-      width: 6px;
-      height: 50px;
-      background: #000;
-    }
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            background: #000;
+            transform: translateX(-50%) rotate(0deg);
+            border-radius: 2px;
+        }
 
-    .minute {
-      width: 4px;
-      height: 70px;
-      background: #333;
-    }
+        .hour {
+            width: 6px;
+            height: 50px;
+            background: #000;
+            z-index: 3;
+        }
 
-    .second {
-      width: 2px;
-      height: 90px;
-      background: red;
-    }
+        .minute {
+            width: 4px;
+            height: 70px;
+            background: #333;
+            z-index: 2;
+        }
+
+        .second {
+            width: 2px;
+            height: 90px;
+            background: red;
+            z-index: 1;
+        }
+
+        /* Cyfry na tarczy */
+        .number {
+            position: absolute;
+            font-weight: bold;
+            color: black;
+            font-family: Arial, sans-serif;
+            user-select: none;
+            font-size: 18px;
+            pointer-events: none;
+        }
+
+        .number1  { top: 20px;  left: 140px; }
+        .number2  { top: 45px;  left: 175px; }
+        .number3  { top: 90px;  left: 190px; }
+        .number4  { top: 130px; left: 175px; }
+        .number5  { top: 160px; left: 140px; }
+        .number6  { top: 175px; left: 90px;  }
+        .number7  { top: 160px; left: 40px;  }
+        .number8  { top: 130px; left: 10px;  }
+        .number9  { top: 90px;  left: 5px;   }
+        .number10 { top: 45px;  left: 10px;  }
+        .number11 { top: 20px;  left: 40px;  }
+        .number12 { top: 5px;   left: 90px;  }
     </style>
-    </head>
-    <body>
-    <header id="ichi">
-        <h1> <b>R A T Y C Z Ó W </b> </h1>
-        <p id="ichi"><i> Czyli małe <s>zadupie</s> wioski (bo jeszcze pgr, i coś tam) w Tomaszowie Lubelskim, z kąd pochodzę JA :) </i></p>
-    </header>
-        <hr>
-  <div class="clock-container">
-    <h2>Polska</h2>
-    <div class="clock" id="clock-pl">
-      <div class="hand hour" id="hour-pl"></div>
-      <div class="hand minute" id="minute-pl"></div>
-      <div class="hand second" id="second-pl"></div>
-    </div>
-  </div>
+</head>
+<body>
+<header id="ichi">
+    <h1> <b>R A T Y C Z Ó W </b> </h1>
+    <p id="ichi"><i> Czyli małe <s>zadupie</s> wioski (bo jeszcze pgr, i coś tam) w Tomaszowie Lubelskim, z kąd pochodzę JA :) </i></p>
+</header>
+<hr>
 
-  <div class="clock-container">
-    <h2>Nowy Jork</h2>
-    <div class="clock" id="clock-ny">
-      <div class="hand hour" id="hour-ny"></div>
-      <div class="hand minute" id="minute-ny"></div>
-      <div class="hand second" id="second-ny"></div>
-    </div>
-  </div>
+<!-- Kontener z zegarami obok siebie -->
+<div class="clocks-row">
+    <div class="clock-container">
+        <h2>Polska</h2>
+        <div class="clock" id="clock-pl">
+            <div class="number number1">1</div>
+            <div class="number number2">2</div>
+            <div class="number number3">3</div>
+            <div class="number number4">4</div>
+            <div class="number number5">5</div>
+            <div class="number number6">6</div>
+            <div class="number number7">7</div>
+            <div class="number number8">8</div>
+            <div class="number number9">9</div>
+            <div class="number number10">10</div>
+            <div class="number number11">11</div>
+            <div class="number number12">12</div>
 
-  <div class="clock-container">
-    <h2>Tokio</h2>
-    <div class="clock" id="clock-tokyo">
-      <div class="hand hour" id="hour-tokyo"></div>
-      <div class="hand minute" id="minute-tokyo"></div>
-      <div class="hand second" id="second-tokyo"></div>
+            <div class="hand hour" id="hour-pl"></div>
+            <div class="hand minute" id="minute-pl"></div>
+            <div class="hand second" id="second-pl"></div>
+        </div>
     </div>
-  </div>
-        <h2> <i>No dobra, ale czym w ogóle jest ratyczów?</i> </h2>
-        <p> <i> Świetnie że pytasz! </i></p>
-        <p> Ratyczów to miejscowość położona na Lubelszczyźnie w powiecie Tomaszowskim, gminie Łaszczów (gdzie w latach 2019-2024 burmistrzynią była Aleksandra Pietrasz, a w latach 2009-2021 sołtysem był Andrzej Pietrasz), która słynie z...</p>
-        <p><i> no tak w sumie z niczego </i></p>
-        <p id="wiki"><i><b>Ratyczów (dawniej nazywany także Raticzew), po raz pierwszy wieś wzmiankowana została w roku 1424. Po roku 1431 weszła w posiadanie rodu Zbrożków herbu Jasieńczyk. W okresie 30 lat swej aktywności gospodarczej Mikołaj Zbrożek wojski bełski zgromadził w swoim posiadaniu ogółem 13 wsi między innymi: Krzewica, Ratyczów, Worochta, Przemysłów, Szlatyn, Łubcze, Chorobrów, a w latach 1487–1488 części po Uhrynowskich. Ratyczów przejął w 1469 roku.
+
+    <div class="clock-container">
+        <h2>Nowy Jork</h2>
+        <div class="clock" id="clock-ny">
+            <div class="number number1">1</div>
+            <div class="number number2">2</div>
+            <div class="number number3">3</div>
+            <div class="number number4">4</div>
+            <div class="number number5">5</div>
+            <div class="number number6">6</div>
+            <div class="number number7">7</div>
+            <div class="number number8">8</div>
+            <div class="number number9">9</div>
+            <div class="number number10">10</div>
+            <div class="number number11">11</div>
+            <div class="number number12">12</div>
+
+            <div class="hand hour" id="hour-ny"></div>
+            <div class="hand minute" id="minute-ny"></div>
+            <div class="hand second" id="second-ny"></div>
+        </div>
+    </div>
+
+    <div class="clock-container">
+        <h2>Tokio</h2>
+        <div class="clock" id="clock-tokyo">
+            <div class="number number1">1</div>
+            <div class="number number2">2</div>
+            <div class="number number3">3</div>
+            <div class="number number4">4</div>
+            <div class="number number5">5</div>
+            <div class="number number6">6</div>
+            <div class="number number7">7</div>
+            <div class="number number8">8</div>
+            <div class="number number9">9</div>
+            <div class="number number10">10</div>
+            <div class="number number11">11</div>
+            <div class="number number12">12</div>
+
+            <div class="hand hour" id="hour-tokyo"></div>
+            <div class="hand minute" id="minute-tokyo"></div>
+            <div class="hand second" id="second-tokyo"></div>
+        </div>
+    </div>
+</div>
+
+<h2> <i>No dobra, ale czym w ogóle jest ratyczów?</i> </h2>
+<p> <i> Świetnie że pytasz! </i></p>
+<p> Ratyczów to miejscowość położona na Lubelszczyźnie w powiecie Tomaszowskim, gminie Łaszczów (gdzie w latach 2019-2024 burmistrzynią była Aleksandra Pietrasz, a w latach 2009-2021 sołtysem był Andrzej Pietrasz), która słynie z...</p>
+<p><i> no tak w sumie z niczego </i></p>
+<p id="wiki"><i><b>Ratyczów (dawniej nazywany także Raticzew), po raz pierwszy wieś wzmiankowana została w roku 1424. Po roku 1431 weszła w posiadanie rodu Zbrożków herbu Jasieńczyk. W okresie 30 lat swej aktywności gospodarczej Mikołaj Zbrożek wojski bełski zgromadził w swoim posiadaniu ogółem 13 wsi między innymi: Krzewica, Ratyczów, Worochta, Przemysłów, Szlatyn, Łubcze, Chorobrów, a w latach 1487–1488 części po Uhrynowskich. Ratyczów przejął w 1469 roku.
 W roku 1491 Mikołaj przekazał swoje dobra synowi Pawłowi w tym Ratyczów, Żerniki pozostały ośrodkiem włości rodowych. W wieku XVI majątek Zbrożka uległ rozdrobnieniu.</b></i> </p>
 <p id="copyright"> Źródło : wikipedia.org </p>
 <p id="focie"> <img src="ratyczow-znak.png" alt="Zdjęcie znaku Ratyczowa z wjazdu wschodniego, mieszkam tam gdzieś na prawo" width="500" height="300"></p>
@@ -126,7 +209,7 @@ W roku 1491 Mikołaj przekazał swoje dobra synowi Pawłowi w tym Ratyczów, Że
 <p> W Poprzedniej sekcji napisałem o dwóch osobach, burmistrzyni Łaszczowa w latach 2019-2024 Aleksandrze Pietrasz, i sołtysem od 2009-2021, Andrzeju Pietraszu. Teraz przeczytaj kto jest autorem tej strony (gdzieś na dole jest)</p>
 <h2> A jak ten ratyczuf wyglonda? </h2>
 <p> nie che mi się rozpisywać, poniżej wysyłam własno ręcznie zrobioną mapkę ważnych miejsc, i potem je opisze </p>
-<p id="focie"><img src="mapa.png" alt="Mapa" width=600 height=525 </p>
+<p id="focie"><img src="mapa.png" alt="Mapa" width=600 height=525 ></p>
 
 <ol>
   <li> Mój stary dom, kiedyś tam mieszkałem, błagam nie stalkujcie tam tutejszych mieszkańców ok? jest to tylko w celach edukacyjnych</li>
@@ -139,49 +222,53 @@ W roku 1491 Mikołaj przekazał swoje dobra synowi Pawłowi w tym Ratyczów, Że
   <img src="pgr.png" alt="Ratyczów PGR" width="200" height="200">
   <li>HUCZWA, tamtejsza rzeka, są tam dwa betonowe mosty, głębokość około 3m, i tak, pływają tam ryby Adrian Szponar, więc można połowić, często tam jeździłem malym quadem chińczykiem 70, dobre czasy, tylko sąsiady później krzyczeli i był ochrzan od mamy</li>
   <img src="huczwa.png" alt="Zdjęcie huczwy ukrytej za drzewami" width="200" height="200">
+</ol>
+<hr>
 
-</ol><hr>
 <script>
 function updateClock(timeZone, prefix) {
-      const now = new Date();
-      const localTime = new Intl.DateTimeFormat('en-US', {
+    const now = new Date();
+    const localTime = new Intl.DateTimeFormat('en-US', {
         hour: 'numeric',
         minute: 'numeric',
         second: 'numeric',
         hour12: false,
         timeZone
-      }).formatToParts(now).reduce((acc, part) => {
+    }).formatToParts(now).reduce((acc, part) => {
         if (part.type !== 'literal') acc[part.type] = parseInt(part.value);
         return acc;
-      }, {});
+    }, {});
 
-      const { hour, minute, second } = localTime;
+    const { hour, minute, second } = localTime;
 
-      const hourDeg = ((hour % 12) + minute / 60) * 30;
-      const minuteDeg = (minute + second / 60) * 6;
-      const secondDeg = second * 6;
+    const hourDeg = ((hour % 12) + minute / 60) * 30;
+    const minuteDeg = (minute + second / 60) * 6;
+    const secondDeg = second * 6;
 
-      document.getElementById(`hour-${prefix}`).style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
-      document.getElementById(`minute-${prefix}`).style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
-      document.getElementById(`second-${prefix}`).style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
-    }
+    document.getElementById(`hour-${prefix}`).style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+    document.getElementById(`minute-${prefix}`).style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+    document.getElementById(`second-${prefix}`).style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+}
 
-    function updateAllClocks() {
-      updateClock('Europe/Warsaw', 'pl');
-      updateClock('America/New_York', 'ny');
-      updateClock('Asia/Tokyo', 'tokyo');
-    }
+function updateAllClocks() {
+    updateClock('Europe/Warsaw', 'pl');
+    updateClock('America/New_York', 'ny');
+    updateClock('Asia/Tokyo', 'tokyo');
+}
 
-    setInterval(updateAllClocks, 1000);
-    updateAllClocks(); // Initial call
+setInterval(updateAllClocks, 1000);
+updateAllClocks(); // Initial call
 </script>
-<footer>
-<p> i w sumie tyle, poniżej mam formy kontatku, apropos</p>
 
-<h6> FORMY KONTAKTU </h6>
-<p> <b>Discord :</b> its_miyoro </p>
-<p><b>E-Mail :</b> dawidpietrasz@proton.me </p>
-<p> <b>Nr. Tel. :</b> 780 491 113 </p>
-  <p id="copyright">&copy; 2025 Dawid Pietrasz. Udostępniono na licencji <a href="https://creativecommons.org/licenses/by/4.0/deed.pl" target="_blank">CC BY 4.0</a>.</p>
+<footer>
+    <p> i w sumie tyle, poniżej mam formy kontatku, apropos</p>
+
+    <h6> FORMY KONTAKTU </h6>
+    <p> <b>Discord :</b> its_miyoro </p>
+    <p><b>E-Mail :</b> dawidpietrasz@proton.me </p>
+    <p> <b>Nr. Tel. :</b> 780 491 113 </p>
+    <p id="copyright">&copy; 2025 Dawid Pietrasz. Udostępniono na licencji <a href="https://creativecommons.org/licenses/by/4.0/deed.pl" target="_blank">CC BY 4.0</a>.</p>
 </footer>
+</body>
 </html>
+
